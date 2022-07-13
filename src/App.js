@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useState, useEffect } from "react";
 import AppBar from "@mui/material/AppBar";
 import Button from "@mui/material/Button";
 import CameraIcon from "@mui/icons-material/PhotoCamera";
@@ -15,7 +15,15 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Link from "@mui/material/Link";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Paper, TextField, Divider } from "@mui/material";
+import {
+	Paper,
+	TextField,
+	Divider,
+	InputAdornment,
+	DateField,
+} from "@mui/material";
+import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
+import AccountCircle from "@mui/icons-material/AccountCircle";
 
 function Copyright() {
 	return (
@@ -23,18 +31,16 @@ function Copyright() {
 			{"Copyright © "}
 			<Link color="inherit" href="https://mui.com/">
 				e-zaho
-			</Link>{" "}
+			</Link>
 			{new Date().getFullYear()}
-			{"."}
 		</Typography>
 	);
 }
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-
 const theme = createTheme();
 
-export default function Album() {
+export default function Formulaire() {
+	const [date, setDate] = useState(new Date());
 	return (
 		<ThemeProvider theme={theme}>
 			<CssBaseline />
@@ -53,9 +59,21 @@ export default function Album() {
 					<Divider />
 					<Stack direction="column" spacing={3}>
 						<TextField id="nomFb" label="Nom Facebook" variant="standard" />
+
 						<TextField id="Contact" label="Contact" variant="standard" />
-						<TextField id="Adresse" label="Adresse" variant="standard" />{" "}
-						<TextField id="Prenom" label="Prenom" variant="standard" />{" "}
+						<TextField id="Adresse" label="Adresse" variant="standard" />
+						<TextField
+							id="Prenom"
+							label="Prenom"
+							variant="standard"
+							InputProps={{
+								startAdornment: (
+									<InputAdornment position="start">
+										<AccountCircle />
+									</InputAdornment>
+								),
+							}}
+						/>
 						<TextField id="Lieu" label="Region" variant="standard" />
 						<Button variant="contained" color="primary">
 							Enregistrer
