@@ -54,7 +54,7 @@ export default function Formulaire() {
 	return (
 		<ThemeProvider theme={theme}>
 			<CssBaseline />
-			<AppBar position="sticky" color="transparent">
+			<AppBar position="sticky" color="inherit">
 				<Toolbar>
 					<img
 						src={Logo}
