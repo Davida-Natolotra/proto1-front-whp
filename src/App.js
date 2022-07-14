@@ -6,6 +6,11 @@ import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
+import ContactsIcon from "@mui/icons-material/Contacts";
+import PhoneIcon from "@mui/icons-material/Phone";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import PinDropIcon from "@mui/icons-material/PinDrop";
+import BadgeIcon from "@mui/icons-material/Badge";
 import CssBaseline from "@mui/material/CssBaseline";
 import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
@@ -22,14 +27,18 @@ import {
 	InputAdornment,
 	DateField,
 } from "@mui/material";
-import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import AccountCircle from "@mui/icons-material/AccountCircle";
+import frLocale from "date-fns/locale/fr";
+import { frFR as calFR } from "@mui/x-date-pickers";
 
 function Copyright() {
 	return (
 		<Typography variant="body2" color="text.secondary" align="center">
 			{"Copyright © "}
-			<Link color="inherit" href="https://mui.com/">
+			<Link color="inherit" href="https://e-zaho.mg/">
 				e-zaho
 			</Link>
 			{new Date().getFullYear()}
@@ -55,16 +64,40 @@ export default function Formulaire() {
 			<main>
 				<Container maxWidth="sm">
 					<br />
-					<Typography variant="h5">Formulaire de recolte WHP</Typography>
+					<Typography variant="h5">Formulaire de récolte WHP</Typography>
 					<Divider />
-					<Stack direction="column" spacing={3}>
-						<TextField id="nomFb" label="Nom Facebook" variant="standard" />
-
-						<TextField id="Contact" label="Contact" variant="standard" />
-						<TextField id="Adresse" label="Adresse" variant="standard" />
+					<Stack direction="column" spacing={3} sx={{ mt: 3 }}>
+						<TextField
+							id="nomFb"
+							label="Nom Facebook"
+							variant="standard"
+							InputProps={{
+								startAdornment: (
+									<InputAdornment position="start">
+										<FacebookIcon />
+									</InputAdornment>
+								),
+							}}
+						/>
+						<LocalizationProvider
+							dateAdapter={AdapterDateFns}
+							adapterLocale={frLocale}
+							localeText={
+								calFR.components.MuiLocalizationProvider.defaultProps.localeText
+							}
+						>
+							<DatePicker
+								label="Date de récolte"
+								value={date}
+								onChange={(newValue) => {
+									setDate(newValue);
+								}}
+								renderInput={(params) => <TextField {...params} />}
+							/>
+						</LocalizationProvider>
 						<TextField
 							id="Prenom"
-							label="Prenom"
+							label="Prénom PAX"
 							variant="standard"
 							InputProps={{
 								startAdornment: (
@@ -74,7 +107,68 @@ export default function Formulaire() {
 								),
 							}}
 						/>
-						<TextField id="Lieu" label="Region" variant="standard" />
+						<TextField
+							id="Lieu"
+							label="Région"
+							variant="standard"
+							InputProps={{
+								startAdornment: (
+									<InputAdornment position="start">
+										<PinDropIcon />
+									</InputAdornment>
+								),
+							}}
+						/>
+
+						<TextField
+							id="Adresse"
+							label="Adresse PAX"
+							variant="standard"
+							InputProps={{
+								startAdornment: (
+									<InputAdornment position="start">
+										<ContactsIcon />
+									</InputAdornment>
+								),
+							}}
+						/>
+						<TextField
+							id="Nom Ref"
+							label="Référent"
+							variant="standard"
+							InputProps={{
+								startAdornment: (
+									<InputAdornment position="start">
+										<AccountCircle />
+									</InputAdornment>
+								),
+							}}
+						/>
+						<TextField
+							id="contRef"
+							label="Contact Référent"
+							variant="standard"
+							InputProps={{
+								startAdornment: (
+									<InputAdornment position="start">
+										<PhoneIcon />
+									</InputAdornment>
+								),
+							}}
+						/>
+						<TextField
+							id="CIU"
+							label="CIU"
+							variant="standard"
+							InputProps={{
+								startAdornment: (
+									<InputAdornment position="start">
+										<BadgeIcon />
+									</InputAdornment>
+								),
+							}}
+						/>
+
 						<Button variant="contained" color="primary">
 							Enregistrer
 						</Button>
