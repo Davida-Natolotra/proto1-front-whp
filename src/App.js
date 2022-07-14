@@ -33,6 +33,7 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import frLocale from "date-fns/locale/fr";
 import { frFR as calFR } from "@mui/x-date-pickers";
+import Logo from "./Logo-Ezaho.svg";
 
 function Copyright() {
 	return (
@@ -53,11 +54,15 @@ export default function Formulaire() {
 	return (
 		<ThemeProvider theme={theme}>
 			<CssBaseline />
-			<AppBar position="fix">
+			<AppBar position="sticky" color="transparent">
 				<Toolbar>
-					<CameraIcon sx={{ mr: 2 }} />
-					<Typography variant="h6" color="inherit" noWrap>
-						e-zaho facebook
+					<img
+						src={Logo}
+						alt="logo"
+						style={{ height: "100%", maxWidth: 100, marginRight: 10 }}
+					/>
+					<Typography variant="h6" color="primary" noWrap>
+						facebook
 					</Typography>
 				</Toolbar>
 			</AppBar>
