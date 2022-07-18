@@ -72,18 +72,16 @@ export default function Formulaire() {
 					<Typography variant="h5">Formulaire de récolte WHP</Typography>
 					<Divider />
 					<Stack direction="column" spacing={3} sx={{ mt: 3 }}>
-						<TextField
-							id="nomFb"
-							label="Nom Facebook"
-							variant="standard"
-							InputProps={{
-								startAdornment: (
-									<InputAdornment position="start">
-										<FacebookIcon />
-									</InputAdornment>
-								),
-							}}
-						/>
+						<Box sx={{ display: "flex", alignItems: "flex-end" }}>
+							<FacebookIcon sx={{ color: "action.active", mr: 1, my: 0.5 }} />
+							<TextField
+								id="nomFb"
+								label="Nom Facebook"
+								variant="standard"
+								sx={{ width: "100%" }}
+							/>
+						</Box>
+
 						<LocalizationProvider
 							dateAdapter={AdapterDateFns}
 							adapterLocale={frLocale}
