@@ -20,20 +20,13 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Link from "@mui/material/Link";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import {
-	Paper,
-	TextField,
-	Divider,
-	InputAdornment,
-	DateField,
-} from "@mui/material";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { Paper, TextField, Divider, InputAdornment } from "@mui/material";
+
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import frLocale from "date-fns/locale/fr";
-import { frFR as calFR } from "@mui/x-date-pickers";
+
 import Logo from "./Logo-Ezaho.svg";
+import DateField from "./components/DateFieldFr";
+import TextInput from "./components/TextInput";
 
 function Copyright() {
 	return (
@@ -50,7 +43,7 @@ function Copyright() {
 const theme = createTheme();
 
 export default function Formulaire() {
-	const [date, setDate] = useState(new Date());
+	const [date, setDate] = useState(null);
 	return (
 		<ThemeProvider theme={theme}>
 			<CssBaseline />
@@ -72,105 +65,18 @@ export default function Formulaire() {
 					<Typography variant="h5">Formulaire de récolte WHP</Typography>
 					<Divider />
 					<Stack direction="column" spacing={3} sx={{ mt: 3 }}>
-						<Box sx={{ display: "flex", alignItems: "flex-end" }}>
-							<FacebookIcon sx={{ color: "action.active", mr: 1, my: 0.5 }} />
-							<TextField
-								id="nomFb"
-								label="Nom Facebook"
-								variant="standard"
-								sx={{ width: "100%" }}
-							/>
-						</Box>
-
-						<LocalizationProvider
-							dateAdapter={AdapterDateFns}
-							adapterLocale={frLocale}
-							localeText={
-								calFR.components.MuiLocalizationProvider.defaultProps.localeText
-							}
-						>
-							<DatePicker
-								label="Date de récolte"
-								value={date}
-								onChange={(newValue) => {
-									setDate(newValue);
-								}}
-								renderInput={(params) => <TextField {...params} />}
-							/>
-						</LocalizationProvider>
-						<TextField
-							id="Prenom"
-							label="Prénom PAX"
-							variant="standard"
-							InputProps={{
-								startAdornment: (
-									<InputAdornment position="start">
-										<AccountCircle />
-									</InputAdornment>
-								),
-							}}
+						<TextInput
+							Icon={FacebookIcon}
+							id="idFacebook"
+							label="Nom facebook"
 						/>
-						<TextField
-							id="Lieu"
-							label="Région"
-							variant="standard"
-							InputProps={{
-								startAdornment: (
-									<InputAdornment position="start">
-										<PinDropIcon />
-									</InputAdornment>
-								),
-							}}
-						/>
-
-						<TextField
-							id="Adresse"
-							label="Adresse PAX"
-							variant="standard"
-							InputProps={{
-								startAdornment: (
-									<InputAdornment position="start">
-										<ContactsIcon />
-									</InputAdornment>
-								),
-							}}
-						/>
-						<TextField
-							id="Nom Ref"
-							label="Référent"
-							variant="standard"
-							InputProps={{
-								startAdornment: (
-									<InputAdornment position="start">
-										<AccountCircle />
-									</InputAdornment>
-								),
-							}}
-						/>
-						<TextField
-							id="contRef"
-							label="Contact Référent"
-							variant="standard"
-							InputProps={{
-								startAdornment: (
-									<InputAdornment position="start">
-										<PhoneIcon />
-									</InputAdornment>
-								),
-							}}
-						/>
-						<TextField
-							id="CIU"
-							label="CIU"
-							variant="standard"
-							InputProps={{
-								startAdornment: (
-									<InputAdornment position="start">
-										<BadgeIcon />
-									</InputAdornment>
-								),
-							}}
-						/>
+						<DateField label="Date de récolte" date={date} fdate={setDate} />
+						<TextInput Icon={AccountCircle} id="Prenom" label="Prénom PAX" />
+						<TextInput Icon={PinDropIcon} id="Lieu" label="Région" />
+						<TextInput Icon={ContactsIcon} id="Adresse" label="Adresse PAX" />
+						<TextInput Icon={AccountCircle} id="Nom Ref" label="Référent" />
+						<TextInput Icon={PhoneIcon} id="contRef" label="Contact Référent" />
+						<TextInput Icon={BadgeIcon} id="CIU" label="CIU" />
 
 						<Button variant="contained" color="primary">
 							Enregistrer
