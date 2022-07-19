@@ -76,6 +76,8 @@ export default function Home() {
 								WHP
 							</Button>
 							<Button
+								component={Lk}
+								to="/vih"
 								type="button"
 								fullWidth
 								variant="contained"

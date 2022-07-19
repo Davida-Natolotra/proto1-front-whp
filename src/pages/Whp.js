@@ -1,5 +1,5 @@
 import { useState } from "react";
-import AppBar from "@mui/material/AppBar";
+
 import Button from "@mui/material/Button";
 import ContactsIcon from "@mui/icons-material/Contacts";
 import PhoneIcon from "@mui/icons-material/Phone";
@@ -15,12 +15,12 @@ import Container from "@mui/material/Container";
 import Link from "@mui/material/Link";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Divider } from "@mui/material";
-
 import AccountCircle from "@mui/icons-material/AccountCircle";
-
+import { Link as Lk } from "react-router-dom";
 import Logo from "../Logo-Ezaho.svg";
 import DateField from "../components/DateFieldFr";
 import TextInput from "../components/TextInput";
+import AppBar from "../components/Appbar";
 
 function Copyright() {
 	return (
@@ -41,18 +41,7 @@ export default function Formulaire() {
 	return (
 		<ThemeProvider theme={theme}>
 			<CssBaseline />
-			<AppBar position="sticky" color="inherit">
-				<Toolbar>
-					<img
-						src={Logo}
-						alt="logo"
-						style={{ height: "100%", maxWidth: 100, marginRight: 10 }}
-					/>
-					<Typography variant="h6" color="primary" noWrap>
-						facebook
-					</Typography>
-				</Toolbar>
-			</AppBar>
+			<AppBar />
 			<main>
 				<Container maxWidth="sm">
 					<br />
