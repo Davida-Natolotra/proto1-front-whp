@@ -1,24 +1,25 @@
 import * as React from "react";
 import { DataGrid, frFR, GridToolbar } from "@mui/x-data-grid";
-import { useDemoData } from "@mui/x-data-grid-generator";
 
-const VISIBLE_FIELDS = ["name", "rating", "country", "dateCreated", "isAdmin"];
 const columns = [
 	{
 		field: "nomFb",
 		headerName: "Nom Facebook",
 		flex: 3,
+		minWidth: 180,
 	},
 	{
 		field: "sexe",
 		headerName: "Sexe",
 		flex: 1,
+		minWidth: 100,
 	},
 
 	{
 		field: "date",
 		headerName: "Date de collecte",
 		flex: 3,
+		minWidth: 180,
 		sortable: true,
 
 		valueFormatter: (params) =>
@@ -30,33 +31,39 @@ const columns = [
 	},
 	{
 		field: "prenomPAX",
-		headerName: "prenomPAX",
+		headerName: "Prénom PAX",
+		minWidth: 180,
 		flex: 2,
 	},
 	{
 		field: "cible",
-		headerName: "cible",
+		headerName: "Cible",
 		flex: 2,
+		minWidth: 100,
 	},
 	{
 		field: "inputRegion",
 		headerName: "Région",
 		flex: 2,
+		minWidth: 180,
 	},
 	{
 		field: "referent",
 		headerName: "Référé à",
 		flex: 2,
+		minWidth: 180,
 	},
 	{
 		field: "pSensibilisation",
 		headerName: "Page de sensibilisation",
 		flex: 3,
+		minWidth: 180,
 	},
 	{
 		field: "CIU",
 		headerName: "CIU",
 		flex: 2,
+		minWidth: 180,
 	},
 ];
 
