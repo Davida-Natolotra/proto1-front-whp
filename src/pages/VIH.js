@@ -113,7 +113,7 @@ export default function Formulaire() {
 		<ThemeProvider theme={theme}>
 			<CssBaseline />
 			<AppBar />
-			<Box sx={{ my: 10 }}>
+			<Box sx={{ my: 10, pr: 12 }}>
 				<Grid container spacing={3} sx={{ m: 3 }}>
 					<Grid item xs={12} sm={4}>
 						<Typography variant="h5">Formulaire de récolte VIH</Typography>

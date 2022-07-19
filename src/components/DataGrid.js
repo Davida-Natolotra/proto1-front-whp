@@ -1,5 +1,6 @@
 import * as React from "react";
 import { DataGrid, frFR, GridToolbar } from "@mui/x-data-grid";
+import { Box } from "@mui/material";
 
 const columns = [
 	{
@@ -39,7 +40,7 @@ const columns = [
 		field: "cible",
 		headerName: "Cible",
 		flex: 2,
-		minWidth: 100,
+		minWidth: 120,
 	},
 	{
 		field: "inputRegion",
@@ -57,7 +58,7 @@ const columns = [
 		field: "pSensibilisation",
 		headerName: "Page de sensibilisation",
 		flex: 3,
-		minWidth: 180,
+		minWidth: 200,
 	},
 	{
 		field: "CIU",
@@ -69,7 +70,7 @@ const columns = [
 
 export default function BasicExampleDataGrid({ rows }) {
 	return (
-		<div style={{ height: "100%", width: "100%", margin: 3 }}>
+		<Box style={{ height: "100%", width: "auto" }}>
 			<DataGrid
 				checkboxSelection
 				disableSelectionOnClick
@@ -80,6 +81,6 @@ export default function BasicExampleDataGrid({ rows }) {
 				columns={columns}
 				rows={rows}
 			/>
-		</div>
+		</Box>
 	);
 }
