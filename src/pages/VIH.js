@@ -56,55 +56,40 @@ export default function Formulaire() {
 	const [referent, setReferent] = useState("");
 	const [pSensibilisation, setPSensibilisation] = useState("");
 	const [allergenes, setAllergenes] = useState([]);
-	const [id, setId] = useState(null);
+	const [id, setId] = useState(0);
+	const [isReset, setReset] = useState(false);
 
 	const reset = () => {
 		setNomFb("");
 		setPrenomPAX("");
 		setCIU("");
 		setDate(null);
-		setInputRegion("");
-		setSexe("");
+		setInputRegion(null);
+		setSexe(null);
 		setCible("");
 		setReferent("");
-		setPSensibilisation("");
+		setPSensibilisation(null);
+		setReset(true);
 	};
 
 	const submit = () => {
-		if (id === null) {
-			setId(0);
-			setAllergenes([
-				{
-					id: 0,
-					nomFb,
-					prenomPAX,
-					CIU,
-					date,
-					inputRegion,
-					sexe,
-					cible,
-					referent,
-					pSensibilisation,
-				},
-			]);
-		} else {
-			setId(id + 1);
-			setAllergenes([
-				...allergenes,
-				{
-					id,
-					nomFb,
-					prenomPAX,
-					CIU,
-					date,
-					inputRegion,
-					sexe,
-					cible,
-					referent,
-					pSensibilisation,
-				},
-			]);
-		}
+		setReset(false);
+		setAllergenes([
+			...allergenes,
+			{
+				id,
+				nomFb,
+				prenomPAX,
+				CIU,
+				date,
+				inputRegion,
+				sexe,
+				cible,
+				referent,
+				pSensibilisation,
+			},
+		]);
+		setId(id + 1);
 
 		reset();
 	};
@@ -127,7 +112,7 @@ export default function Formulaire() {
 								value={nomFb}
 								setValue={setNomFb}
 							/>
-							<SingleCheck setSexe={setSexe} />
+							<SingleCheck setSexe={setSexe} sexe={sexe} />
 							<DateField
 								label="Date de collecte"
 								date={date}
@@ -152,6 +137,7 @@ export default function Formulaire() {
 								freeSolo={true}
 								required={true}
 								referent={false}
+								reset={isReset}
 							/>
 							<AutoComplete
 								Icon={PinDropIcon}
@@ -163,6 +149,7 @@ export default function Formulaire() {
 								freeSolo={false}
 								required={true}
 								referent={false}
+								reset={isReset}
 							/>
 							<AutoComplete
 								Icon={PinDropIcon}
@@ -174,6 +161,7 @@ export default function Formulaire() {
 								freeSolo={true}
 								required={true}
 								referent={true}
+								reset={isReset}
 							/>
 							<AutoComplete
 								Icon={NewspaperIcon}
@@ -185,6 +173,7 @@ export default function Formulaire() {
 								freeSolo={false}
 								required={true}
 								referent={false}
+								reset={isReset}
 							/>
 
 							<TextInput

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
@@ -13,8 +13,14 @@ export default function AutoSelect({
 	freeSolo,
 	required,
 	referent,
+	reset,
 }) {
 	const [value, setValue] = useState(null);
+	useEffect(() => {
+		if (reset) {
+			setValue(null);
+		}
+	}, [reset]);
 	return (
 		<Autocomplete
 			id={id}

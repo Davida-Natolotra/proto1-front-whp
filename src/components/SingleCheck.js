@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import FormLabel from "@mui/material/FormLabel";
 import FormControl from "@mui/material/FormControl";
@@ -9,9 +9,16 @@ import Checkbox from "@mui/material/Checkbox";
 import { Stack } from "@mui/material";
 import WcIcon from "@mui/icons-material/Wc";
 
-export default function CheckboxesGroup({ setSexe }) {
+export default function CheckboxesGroup({ setSexe, sexe }) {
 	const [Masculin, setMasculin] = useState(false);
 	const [Feminin, setFeminin] = useState(false);
+
+	useEffect(() => {
+		if (sexe === null) {
+			setMasculin(false);
+			setFeminin(false);
+		}
+	}, [sexe]);
 
 	const handleChange = (event) => {
 		if (event.target.name === "Masculin") {
