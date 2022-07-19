@@ -37,7 +37,7 @@ function Copyright() {
 			{"Copyright © "}
 			<Link color="inherit" href="https://e-zaho.mg/">
 				e-zaho
-			</Link>
+			</Link>{" "}
 			{new Date().getFullYear()}
 		</Typography>
 	);
