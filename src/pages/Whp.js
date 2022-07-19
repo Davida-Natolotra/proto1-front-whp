@@ -44,10 +44,12 @@ export default function Formulaire() {
 			<AppBar />
 			<main>
 				<Container maxWidth="sm">
-					<br />
-					<Typography variant="h5">Formulaire de récolte WHP</Typography>
-					<Divider />
-					<Stack direction="column" spacing={3} sx={{ mt: 3 }}>
+					<Box sx={{ mt: 10, mb: 3 }}>
+						<Typography variant="h5">Formulaire de récolte WHP</Typography>
+						<Divider />
+					</Box>
+
+					<Stack direction="column" spacing={3}>
 						<TextInput
 							Icon={FacebookIcon}
 							id="idFacebook"
