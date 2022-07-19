@@ -8,6 +8,7 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Logo from "../Logo-Ezaho.svg";
+import { Link as Lk } from "react-router-dom";
 
 function Copyright(props) {
 	return (
@@ -65,6 +66,8 @@ export default function Home() {
 						</Typography>
 						<Box component="form" sx={{ mt: 1 }}>
 							<Button
+								component={Lk}
+								to="/whp"
 								type="button"
 								fullWidth
 								variant="contained"
