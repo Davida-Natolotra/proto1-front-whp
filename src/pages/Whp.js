@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import Button from "@mui/material/Button";
 import ContactsIcon from "@mui/icons-material/Contacts";
@@ -21,6 +21,7 @@ import Logo from "../Logo-Ezaho.svg";
 import DateField from "../components/DateFieldFr";
 import TextInput from "../components/TextInput";
 import AppBar from "../components/Appbar";
+import Autocomplete from "../components/Autocomplete";
 
 function Copyright() {
 	return (
@@ -38,6 +39,35 @@ const theme = createTheme();
 
 export default function Formulaire() {
 	const [date, setDate] = useState(null);
+	const [data, setData] = useState([]);
+	const [region, setRegion] = useState(null);
+	const [regions, setRegions] = useState([]);
+
+	useEffect(() => {
+		const getData = () => {
+			fetch("./whpData.json", {
+				headers: {
+					"Content-Type": "application/json",
+					Accept: "application/json",
+				},
+			})
+				.then((response) => response.json())
+				.then(function (myJson) {
+					setData(myJson);
+				});
+		};
+		getData();
+	}, []);
+	useEffect(() => {
+		let reg = {};
+		const listReg = Array.from(new Set(data.map((el) => el.REGIONS)));
+		console.log(`listReg: ${listReg}`);
+		listReg.forEach((el) => (reg.label = el));
+		console.log(`reg: ${reg}`);
+		setRegions([reg]);
+		console.log(`regions : ${regions}`);
+	}, [data]);
+
 	return (
 		<ThemeProvider theme={theme}>
 			<CssBaseline />
@@ -57,7 +87,15 @@ export default function Formulaire() {
 						/>
 						<DateField label="Date de récolte" date={date} fdate={setDate} />
 						<TextInput Icon={AccountCircle} id="Prenom" label="Prénom PAX" />
-						<TextInput Icon={PinDropIcon} id="Lieu" label="Région" />
+						<Autocomplete
+							Icon={PinDropIcon}
+							id="Lieu"
+							label="Région"
+							data={regions}
+							inputValue={region}
+							setInputValue={setRegion}
+							freeSolo={false}
+						/>
 						<TextInput Icon={ContactsIcon} id="Adresse" label="Adresse PAX" />
 						<TextInput Icon={AccountCircle} id="Nom Ref" label="Référent" />
 						<TextInput Icon={PhoneIcon} id="contRef" label="Contact Référent" />
