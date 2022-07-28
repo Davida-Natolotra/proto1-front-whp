@@ -14,6 +14,8 @@ export default function AutoSelect({
 	required,
 	referent,
 	reset,
+	error,
+	helperText,
 }) {
 	const [value, setValue] = useState(null);
 	useEffect(() => {
@@ -54,6 +56,8 @@ export default function AutoSelect({
 						label={label}
 						variant="standard"
 						required={required}
+						error={error}
+						helperText={helperText}
 					/>
 				</Box>
 			)}

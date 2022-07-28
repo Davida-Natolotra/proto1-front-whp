@@ -9,7 +9,7 @@ import Checkbox from "@mui/material/Checkbox";
 import { Stack } from "@mui/material";
 import WcIcon from "@mui/icons-material/Wc";
 
-export default function CheckboxesGroup({ setSexe, sexe }) {
+export default function CheckboxesGroup({ setSexe, sexe, error, helperText }) {
 	const [Masculin, setMasculin] = useState(false);
 	const [Feminin, setFeminin] = useState(false);
 
@@ -33,8 +33,6 @@ export default function CheckboxesGroup({ setSexe, sexe }) {
 		}
 	};
 
-	const error = [Masculin, Feminin].includes(false);
-
 	return (
 		<Box sx={{ display: "flex", alignItems: "flex-end" }}>
 			<Stack direction="row" spacing={1}>
@@ -44,6 +42,8 @@ export default function CheckboxesGroup({ setSexe, sexe }) {
 					component="fieldset"
 					sx={{ m: 3 }}
 					variant="standard"
+					error={error}
+					helperText={helperText}
 				>
 					<FormLabel component="legend">Sexe</FormLabel>
 					<FormGroup>
