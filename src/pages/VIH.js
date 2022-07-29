@@ -87,8 +87,8 @@ export default function Formulaire() {
 		validationSchema: Schema,
 		onSubmit: async (values, { setSubmitting, resetForm, setErrors }) => {
 			try {
-				submit();
-				reset();
+				submit(values);
+				resetForm();
 			} catch (error) {
 				console.error(error);
 				setSubmitting(false);
@@ -97,49 +97,19 @@ export default function Formulaire() {
 		},
 	});
 
-	const reset = () => {
-		setNomFb("");
-		setPrenomPAX("");
-		setCIU("");
-		setDate(null);
-		setInputRegion(null);
-		setSexe(null);
-		setCible("");
-		setReferent("");
-		setPSensibilisation(null);
-		setReset(true);
-	};
-
-	const submit = () => {
-		setReset(false);
-		setAllergenes([
-			...allergenes,
-			{
-				id,
-				nomFb,
-				prenomPAX,
-				CIU,
-				date,
-				inputRegion,
-				sexe,
-				cible,
-				referent,
-				pSensibilisation,
-			},
-		]);
+	const submit = (values) => {
+		setAllergenes([...allergenes, { ...values }]);
 		setId(id + 1);
-
-		reset();
 	};
 
 	const {
-		errors,
+		handleChange,
 		values,
-		touched,
 		handleSubmit,
-		isSubmitting,
-		setFieldValue,
-		getFieldProps,
+		touched,
+		handleBlur,
+		errors,
+		resetForm,
 	} = formik;
 
 	return (
@@ -156,19 +126,18 @@ export default function Formulaire() {
 								<Stack direction="column" spacing={3} sx={{ mt: 3 }}>
 									<TextInput
 										Icon={FacebookIcon}
-										id="idFacebook"
-										label="Nom facebook"
-										required={true}
-										value={nomFb}
-										setValue={setNomFb}
+										name="nomFb"
+										values={values}
+										handleBlur={handleBlur}
+										handleChange={handleChange}
 										error={Boolean(touched.nomFb && errors.nomFb)}
 										helperText={touched.nomFb && errors.nomFb}
 									/>
 									<SingleCheck
-										setSexe={setSexe}
-										sexe={sexe}
-										error={Boolean(touched.sexe && errors.sexe)}
-										helperText={touched.sexe && errors.sexe}
+										handleChange={handleChange}
+										values={values}
+										touched={touched}
+										errors={errors}
 									/>
 									<DateField
 										label="Date de collecte"
@@ -264,6 +233,13 @@ export default function Formulaire() {
 										onClick={handleSubmit}
 									>
 										Enregistrer
+									</Button>
+									<Button
+										variant="outlined"
+										type="button"
+										onClick={() => resetForm()}
+									>
+										Annuler
 									</Button>
 								</Stack>
 							</Form>
