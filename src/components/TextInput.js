@@ -15,6 +15,7 @@ const TextInput = ({
 			<Icon sx={{ color: "action.active", mr: 1, my: 0.5 }} />
 			<TextField
 				id={id}
+				name={id}
 				label={label}
 				variant="standard"
 				sx={{ width: "100%" }}

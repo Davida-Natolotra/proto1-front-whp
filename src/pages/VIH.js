@@ -152,7 +152,7 @@ export default function Formulaire() {
 						<Typography variant="h5">Formulaire de récolte VIH</Typography>
 						<Divider />
 						<FormikProvider value={formik}>
-							<Form noValidate autoComplete="off" onSubmit={handleSubmit}>
+							<Form autoComplete="off" onSubmit={handleSubmit}>
 								<Stack direction="column" spacing={3} sx={{ mt: 3 }}>
 									<TextInput
 										Icon={FacebookIcon}
@@ -161,6 +161,7 @@ export default function Formulaire() {
 										required={true}
 										value={nomFb}
 										setValue={setNomFb}
+										getFieldProps={getFieldProps}
 										error={Boolean(touched.nomFb && errors.nomFb)}
 										helperText={touched.nomFb && errors.nomFb}
 									/>
@@ -169,6 +170,7 @@ export default function Formulaire() {
 										sexe={sexe}
 										error={Boolean(touched.sexe && errors.sexe)}
 										helperText={touched.sexe && errors.sexe}
+										getFieldProps={getFieldProps}
 									/>
 									<DateField
 										label="Date de collecte"
@@ -177,6 +179,7 @@ export default function Formulaire() {
 										required={true}
 										error={Boolean(touched.date && errors.date)}
 										helperText={touched.date && errors.date}
+										name="date"
 									/>
 									<TextInput
 										Icon={AccountCircle}

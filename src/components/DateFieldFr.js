@@ -5,7 +5,7 @@ import frLocale from "date-fns/locale/fr";
 import { frFR as calFR } from "@mui/x-date-pickers";
 import { TextField } from "@mui/material";
 
-const DateFieldFr = ({ label, fdate, date, error, helperText }) => {
+const DateFieldFr = ({ label, fdate, date, error, helperText, name }) => {
 	return (
 		<LocalizationProvider
 			dateAdapter={AdapterDateFns}
@@ -21,7 +21,12 @@ const DateFieldFr = ({ label, fdate, date, error, helperText }) => {
 					fdate(newValue);
 				}}
 				renderInput={(params) => (
-					<TextField {...params} error={error} helperText={helperText} />
+					<TextField
+						{...params}
+						name={name}
+						error={error}
+						helperText={helperText}
+					/>
 				)}
 				disableFuture
 				variant="standard"

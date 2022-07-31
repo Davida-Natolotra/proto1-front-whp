@@ -26,6 +26,7 @@ export default function AutoSelect({
 	return (
 		<Autocomplete
 			id={id}
+			name={id}
 			fullWidth={true}
 			options={data}
 			autoHighlight
