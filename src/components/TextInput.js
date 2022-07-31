@@ -1,29 +1,17 @@
 import { TextField, Box } from "@mui/material";
 
-const TextInput = ({
-	Icon,
-	id,
-	label,
-	required,
-	value,
-	setValue,
-	error,
-	helperText,
-}) => {
+const TextInput = ({ Icon, values, handleBlur, error, handleChange, name }) => {
 	return (
 		<Box sx={{ display: "flex", alignItems: "flex-end" }}>
 			<Icon sx={{ color: "action.active", mr: 1, my: 0.5 }} />
 			<TextField
-				id={id}
-				name={id}
-				label={label}
-				variant="standard"
-				sx={{ width: "100%" }}
-				required={required}
-				value={value}
-				onChange={(event) => setValue(event.target.value)}
+				label="Nom Facebook"
+				name={name}
+				onChange={handleChange}
+				value={values.nom}
+				onBlur={handleBlur}
 				error={error}
-				helperText={helperText}
+				helperText={error}
 			/>
 		</Box>
 	);
