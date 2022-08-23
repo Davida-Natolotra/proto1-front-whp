@@ -1,6 +1,6 @@
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
 import frLocale from "date-fns/locale/fr";
 import { frFR as calFR } from "@mui/x-date-pickers";
 import { TextField } from "@mui/material";
@@ -14,7 +14,7 @@ const DateFieldFr = ({ label, fdate, date, error, helperText, name }) => {
 				calFR.components.MuiLocalizationProvider.defaultProps.localeText
 			}
 		>
-			<DatePicker
+			<MobileDatePicker
 				label={label}
 				value={date}
 				onChange={(newValue) => {

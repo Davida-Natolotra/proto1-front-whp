@@ -10,12 +10,23 @@ import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
+import { TextFields } from "@mui/icons-material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Divider } from "@mui/material";
-
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
+import frLocale from "date-fns/locale/fr";
+import { frFR as calFR } from "@mui/x-date-pickers";
+import { TextField } from "@mui/material";
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormControl from "@mui/material/FormControl";
+import FormLabel from "@mui/material/FormLabel";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import * as Yup from "yup";
-import DateField from "../components/DateFieldFr";
+import FormHelperText from "@mui/material/FormHelperText";
 import TextInput from "../components/TextInput";
 import AppBar from "../components/Appbar";
 import SingleCheck from "../components/SingleCheck";
@@ -28,6 +39,7 @@ import { pagesSensibilisation } from "../api/pagesSensibilisation";
 // import { DataGrid } from "@mui/x-data-grid";
 import { Grid } from "@mui/material";
 import DataGrid from "../components/DataGrid";
+import DateFieldFr from "../components/DateFieldFr";
 
 function Copyright() {
 	return (
@@ -44,12 +56,7 @@ function Copyright() {
 const theme = createTheme();
 
 export default function Formulaire() {
-	const [nomFb, setNomFb] = useState("");
-	const [prenomPAX, setPrenomPAX] = useState("");
-	const [CIU, setCIU] = useState("");
-	const [date, setDate] = useState(null);
 	const [inputRegion, setInputRegion] = useState("");
-	const [sexe, setSexe] = useState("");
 	const [cible, setCible] = useState("");
 	const [referent, setReferent] = useState("");
 	const [pSensibilisation, setPSensibilisation] = useState("");
@@ -61,14 +68,14 @@ export default function Formulaire() {
 		nomFb: Yup.string().required("Entrer le nom FB du PAX"),
 		prenomPAX: Yup.string().required("Entrer le prénom du PAX"),
 		CIU: Yup.string().required("Entrer le CIU du PAX"),
-		inputRegion: Yup.string().required("Entrer la région du PAX"),
-		date: Yup.string().required("Entrer date de saisie"),
+		date: Yup.date().required("Entrer date de saisie"),
+		// inputRegion: Yup.string().required("Entrer la région du PAX"),
 		sexe: Yup.string().required("Entrer le sexe du PAX"),
-		cible: Yup.string().required("Entrer le type cible du PAX"),
-		referent: Yup.string().required("Entrer le référent du PAX"),
-		pSensibilisation: Yup.string().required(
-			"Entrer la page de sensibilisation du PAX"
-		),
+		// cible: Yup.string().required("Entrer le type cible du PAX"),
+		// referent: Yup.string().required("Entrer le référent du PAX"),
+		// pSensibilisation: Yup.string().required(
+		// 	"Entrer la page de sensibilisation du PAX"
+		// ),
 	});
 
 	const formik = useFormik({
@@ -77,12 +84,12 @@ export default function Formulaire() {
 			nomFb: "",
 			prenomPAX: "",
 			CIU: "",
-			date: "",
-			inputRegion: "",
+			date: null,
+			// inputRegion: "",
 			sexe: "",
-			cible: "",
-			referent: "",
-			pSensibilisation: "",
+			// cible: "",
+			// referent: "",
+			// pSensibilisation: "",
 		},
 		validationSchema: Schema,
 		onSubmit: async (values, { setSubmitting, resetForm, setErrors }) => {
@@ -98,7 +105,7 @@ export default function Formulaire() {
 	});
 
 	const submit = (values) => {
-		setAllergenes([...allergenes, { ...values }]);
+		setAllergenes([...allergenes, { id, ...values }]);
 		setId(id + 1);
 	};
 
@@ -110,6 +117,7 @@ export default function Formulaire() {
 		handleBlur,
 		errors,
 		resetForm,
+		setFieldValue,
 	} = formik;
 
 	return (
@@ -124,124 +132,96 @@ export default function Formulaire() {
 						<FormikProvider value={formik}>
 							<Form autoComplete="off" onSubmit={handleSubmit}>
 								<Stack direction="column" spacing={3} sx={{ mt: 3 }}>
-									<TextInput
-										Icon={FacebookIcon}
+									<TextField
+										label="Nom Facebook"
+										value={values.nomFb}
+										onChange={handleChange}
+										onBlur={handleBlur}
 										name="nomFb"
-										values={values}
-										handleBlur={handleBlur}
-										handleChange={handleChange}
+										variant="standard"
 										error={Boolean(touched.nomFb && errors.nomFb)}
 										helperText={touched.nomFb && errors.nomFb}
 									/>
-									<SingleCheck
-										handleChange={handleChange}
-										values={values}
-										touched={touched}
-										errors={errors}
-									/>
-									<DateField
-										label="Date de collecte"
-										date={date}
-										fdate={setDate}
-										required={true}
-										error={Boolean(touched.date && errors.date)}
-										helperText={touched.date && errors.date}
-										name="date"
-									/>
-									<TextInput
-										Icon={AccountCircle}
-										id="Prenom"
+									<TextField
 										label="Prénom PAX"
-										required={true}
-										value={prenomPAX}
-										setValue={setPrenomPAX}
+										value={values.prenomPAX}
+										onChange={handleChange}
+										onBlur={handleBlur}
+										name="prenomPAX"
+										variant="standard"
 										error={Boolean(touched.prenomPAX && errors.prenomPAX)}
 										helperText={touched.prenomPAX && errors.prenomPAX}
 									/>
-									<AutoComplete
-										Icon={GpsFixedIcon}
-										id="Cible"
-										label="Type cible"
-										inputValue={cible}
-										setInputValue={setCible}
-										data={cibles}
-										freeSolo={true}
-										required={true}
-										referent={false}
-										reset={isReset}
-										error={Boolean(touched.cible && errors.cible)}
-										helperText={touched.cible && errors.cible}
-									/>
-									<AutoComplete
-										Icon={PinDropIcon}
-										id="Lieu"
-										label="Région"
-										inputValue={inputRegion}
-										setInputValue={setInputRegion}
-										data={regions}
-										freeSolo={false}
-										required={true}
-										referent={false}
-										reset={isReset}
-										error={Boolean(touched.inputRegion && errors.inputRegion)}
-										helperText={touched.inputRegion && errors.inputRegion}
-									/>
-									<AutoComplete
-										Icon={PinDropIcon}
-										id="Referent"
-										label="Référé à"
-										inputValue={referent}
-										setInputValue={setReferent}
-										data={referents}
-										freeSolo={true}
-										required={true}
-										referent={true}
-										reset={isReset}
-										error={Boolean(touched.referent && errors.referent)}
-										helperText={touched.referent && errors.referent}
-									/>
-									<AutoComplete
-										Icon={NewspaperIcon}
-										id="pSensibilisation"
-										label="Page de la sensibilisation"
-										inputValue={pSensibilisation}
-										setInputValue={setPSensibilisation}
-										data={pagesSensibilisation}
-										freeSolo={false}
-										required={true}
-										referent={false}
-										reset={isReset}
-										error={Boolean(
-											touched.pSensibilisation && errors.pSensibilisation
-										)}
-										helperText={
-											touched.pSensibilisation && errors.pSensibilisation
+									<LocalizationProvider
+										dateAdapter={AdapterDateFns}
+										adapterLocale={frLocale}
+										localeText={
+											calFR.components.MuiLocalizationProvider.defaultProps
+												.localeText
 										}
-									/>
-
-									<TextInput
-										Icon={BadgeIcon}
-										id="CIU"
-										label="CIU"
-										value={CIU}
-										setValue={setCIU}
-									/>
-
-									<Button
-										variant="contained"
-										color="primary"
-										type="submit"
-										onClick={handleSubmit}
 									>
-										Enregistrer
-									</Button>
-									<Button
-										variant="outlined"
-										type="button"
-										onClick={() => resetForm()}
-									>
-										Annuler
-									</Button>
+										<MobileDatePicker
+											label="Date de collecte"
+											value={values.date}
+											onChange={(newValue) => {
+												setFieldValue("date", newValue);
+											}}
+											renderInput={(params) => (
+												<TextField
+													{...params}
+													name="date"
+													variant="standard"
+													error={Boolean(touched.date && errors.date)}
+													helperText={touched.date && errors.date}
+												/>
+											)}
+											disableFuture
+											variant="standard"
+										/>
+									</LocalizationProvider>
+									<FormControl error={Boolean(touched.sexe && errors.sexe)}>
+										<FormLabel id="demo-row-radio-buttons-group-label">
+											Sexe
+										</FormLabel>
+										<RadioGroup
+											row
+											aria-labelledby="demo-row-radio-buttons-group-label"
+											name="sexe"
+											value={values.sexe}
+											onChange={handleChange}
+										>
+											<FormControlLabel
+												value="feminin"
+												control={<Radio />}
+												label="Feminin"
+											/>
+											<FormControlLabel
+												value="masculin"
+												control={<Radio />}
+												label="Masculin"
+											/>
+										</RadioGroup>
+										<FormHelperText>
+											{touched.sexe && errors.sexe}
+										</FormHelperText>
+									</FormControl>
+									<Stack direction="row" spacing={2}>
+										<Button
+											variant="contained"
+											color="primary"
+											type="submit"
+											onClick={handleSubmit}
+										>
+											Enregistrer
+										</Button>
+										<Button
+											variant="outlined"
+											type="button"
+											onClick={() => resetForm()}
+										>
+											Annuler
+										</Button>
+									</Stack>
 								</Stack>
 							</Form>
 						</FormikProvider>
